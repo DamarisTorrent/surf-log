@@ -14,9 +14,27 @@ export const DataBox = (props) => {
   return (
     <>
       <Card>
-        <Typography color="text.secondary" variant="overline"> {title}</Typography>
-        <Typography variant="h5">{data == "MM" ? "Not available" : data}</Typography>
-        <Typography color="text.secondary" variant="caption" align="right">{label}</Typography>
+        <Typography color="text.secondary" variant="overline"        
+         sx={{
+          fontSize: {
+            lg:'10px'  
+            },
+            lineHeight : {
+              lg: 1
+            }
+          }}> {title}</Typography>
+        <Typography variant="h5"
+            sx={{
+              fontSize: {
+                lg:'15px', 
+                }
+              }} >{data == "MM" ? "Not available" : data}</Typography>
+        <Typography color="text.secondary" variant="caption" align="right"        sx={{
+              fontSize: {
+                lg:'10px'
+                }
+              }}
+        >{label}</Typography>
       </Card>
     </>
 

@@ -44,6 +44,11 @@ export default function HomePage() {
     MWD: "",
     PRES: "",
   })
+
+
+
+
+
   //State management for data returned from the visualcrossing.com weather api
   const [weatherData, setWeatherData] = useState({
     currentTemp: "",
@@ -191,6 +196,17 @@ export default function HomePage() {
       })
   }, [selectedBuoy])
 
+    // xs: extra-small devices (portrait phones), less than 600px
+  // sm: small devices (landscape phones), 600px and up
+  // md: medium devices (tablets), 960px and up
+  // lg: large devices (desktops), 1280px and up
+  // xl: extra-large devices (large desktops), 1920px and up done
+
+// 100% of the container (xs={12}) on extra-small devices,
+// 50% (sm={6}) on small devices,
+// 33.33% (md={4}) on medium devices, and
+// 25% (lg={3}) on large devices.
+
   return (
     <Grid
       container
@@ -201,7 +217,7 @@ export default function HomePage() {
         height: "100vh",
       }}
     >
-      <Grid item xs={3}>
+      <Grid item xs={12} lg={3} xl={3} order={{xs: 0, lg: 0, xl: 0}}>
         <Card
           sx={{
             height: "70vh",
@@ -231,7 +247,7 @@ export default function HomePage() {
           </Card>
         </Card>
       </Grid>
-      <Grid className="middle" item xs={6}>
+      <Grid className="middle" item xs={12} lg={6} xl={6} order={{xs: 2, lg: 1,  xl: 1}}>
         <Card
           sx={{
             height: "70vh",
@@ -280,7 +296,7 @@ export default function HomePage() {
           </Grid>
         </Card>
       </Grid>
-      <Grid className="right" item xs={3}>
+      <Grid className="right" item xs={12} lg={3} xl={3} order={{xs: 1, lg: 2, xl: 2}}>
         <Card
           sx={{
             height: "70vh",
