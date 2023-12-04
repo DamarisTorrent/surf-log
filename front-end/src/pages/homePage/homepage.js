@@ -65,6 +65,8 @@ export default function HomePage() {
   //The select component where user can change the buoy
   const handleSelectChange = (newBuoy) => {
     setWaveData(getWaveData(selectedDate.format("YYYY-MM-DD"), newBuoy))
+    console.log('selected date', selectedDate.format("YYYY-MM-DD"))
+    console.log('selected buoy', newBuoy)
     getWeatherData(selectedDate.format("YYYY-MM-DD"), newBuoy).then(
       (result) => {
         setWeatherData(result)

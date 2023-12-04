@@ -198,9 +198,11 @@ export const getCompassDirection = (degrees) => {
 export const weatherSearchUrl = (dateString, location) => {
   //API Key EXQ4HJA5WC2HZL3LRU6EANZKK damaristorrent@gmail.com
   //API Key 4PSEWATKQCJJCLS5LN8XJQQX9 damaristorrent21@gmail.com
+
+  //This is the one with the credit card!!!
   //API Key RM9MFARWRLYSCGUE7J8LYPUPM damaristorrent@hotmail.com
 
-  const apiKey = "EXQ4HJA5WC2HZL3LRU6EANZKK"
+  const apiKey = "RM9MFARWRLYSCGUE7J8LYPUPM"
 
   const stringOne = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"
   const stringTwo = "?unitGroup=metric&include=hours&key="
@@ -211,9 +213,9 @@ export const weatherSearchUrl = (dateString, location) => {
 }
 
 export const getWeatherData = async (selectedDate, selectedBuoy) => {
-  console.log('selected buoy in the weathersearch url', selectedBuoy)
+  
   const location = getLocation(selectedBuoy)
-  console.log('location', location)
+
  
   const searchString = weatherSearchUrl(selectedDate, location.searchString)
 
@@ -330,4 +332,18 @@ export const getLocation = (selectedBuoy) => {
     }
     return result
   }
+}
+
+export const getReadableDate = (date) => {
+
+  const inputDate = new Date(date)
+
+  const options = { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }
+  
+ return inputDate.toLocaleDateString('en-US', options)
+
 }

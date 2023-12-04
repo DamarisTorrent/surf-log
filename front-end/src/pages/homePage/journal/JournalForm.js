@@ -11,11 +11,10 @@ import Typography from "@mui/material/Typography"
 import { getLocation } from "../../../utility"
 
 const JournalForm = ({ waveData, selectedBuoy, date, handleClose }) => {
-  const [location, setLocation] = useState()
   const [description, setDescription] = useState()
   const [submitClicked, setSubmitClicked] = useState(false);
 
-  const templocation = getLocation(selectedBuoy).label
+  const location = getLocation(selectedBuoy).label
 
   let post = {
     user_id: "",
@@ -37,7 +36,7 @@ const JournalForm = ({ waveData, selectedBuoy, date, handleClose }) => {
     post.user_id = getUserId()
     post.post_date = date.format("MM-DD-YYYY")
     post.post_description = description
-    post.post_location = templocation
+    post.post_location = location
     post.WDIR = waveData.WDIR
     post.WSPD = waveData.WSPD
     post.GST = waveData.GST
@@ -83,7 +82,7 @@ const JournalForm = ({ waveData, selectedBuoy, date, handleClose }) => {
               <TextField
                 sx={{ marginBottom: "5px" }}
                 // onChange={(location) => setLocation(location.target.value)}
-                value={templocation}
+                value={location}
                 variant='outlined'
               />
 
@@ -91,7 +90,7 @@ const JournalForm = ({ waveData, selectedBuoy, date, handleClose }) => {
                 id="review"
                 label="Write a review"
                 multiline
-                rows={5}
+                rows={10}
                 onChange={(description) =>
                   setDescription(description.target.value)
                 }

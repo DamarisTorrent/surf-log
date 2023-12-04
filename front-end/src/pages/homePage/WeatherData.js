@@ -83,9 +83,9 @@ export const WeatherData = ({ weatherData, messageText, locationText }) => {
         label={weatherData.windDirectionDegrees + " degrees"}
       ></DataBox>
     </Grid>
-    <Grid item xs={5}>
+    <Grid item xs={5} lg={6}>
       <DataBox
-        title="Conditions"
+        title="Wind Gust"
         data={weatherData.windGust}
         label="mph"
       ></DataBox>

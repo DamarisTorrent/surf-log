@@ -1,26 +1,40 @@
-import { Grid, Card, Typography, Divider, Button } from "@mui/material"
+import {
+  Grid,
+  Card,
+  Typography,
+  Divider,
+  Button,
+  TextField,
+} from "@mui/material"
 import CardContent from "@mui/material/CardContent"
-import StickyNotes from "./StickyNotes"
-import { v4 as uuidv4 } from "uuid"
+import { getReadableDate } from "../../../utility"
+import { useState } from "react"
 
+export default function Pages({ post, onDeletePost, onUpdatePost }) {
+  const readableDate = getReadableDate(post.post_date)
 
-export default function Pages({ post, onDeletePost }) {
-    //Format the timestamp into a readable date
-    const inputDate = new Date(post.post_date)
+  //For editing a post, just going to leave this in for now
+  // const [text, setText] = useState();
+  // const [isEditing, setIsEditing] = useState(false);
+  // const handleTextChange = (event) => {
+  //   setText(event.target.value)
+  // }
 
-    const options = { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    }
-    
-    const formattedDate = inputDate.toLocaleDateString('en-US', options)
+  // const handleEditModeToggle = () => {
+  //   setIsEditing((prevState) => !prevState);
+  // }
 
-    const handlePostDelete = (postId) => {
-        onDeletePost(postId)
-      }
-    
-    return (
+  // const handleBlur = () => {
+  //   setIsEditing(true)
+  //   console.log('Updated Text:', text)
+  //   onUpdatePost(text, post.post_id)
+  // }
+
+  const handlePostDelete = (postId) => {
+    onDeletePost(postId)
+  }
+
+  return (
     <>
       {/* <Grid item xs={12}> */}
       <Grid
@@ -149,20 +163,45 @@ export default function Pages({ post, onDeletePost }) {
               <Divider color="white" />
               <br></br>
               <Typography variant="h5" color="white">
-                {formattedDate}
+                {readableDate}
               </Typography>
               <br></br>
+
+              {/* {isEditing ? (
+                <TextField
+                  value={text}
+                  onChange={handleTextChange}
+                  onBlur={handleBlur}
+                  autoFocus
+                  fullWidth
+                />
+              ) : (
+                <Typography variant="body1" onClick={handleEditModeToggle}>
+                  {post.post_description}
+                </Typography>
+              )} */}
+
               <Typography variant="body1" color="white">
                 {post.post_description}
               </Typography>
-              <br></br><br></br>
+              <br></br>
+              <br></br>
               <Button
-          variant="contained"
-          onClick={() => handlePostDelete(post.post_id)}
-          sx={{ margin: "15px", width: "150px" }}
-        >
-          Delete Post
-        </Button>
+                variant="contained"
+                onClick={() => handlePostDelete(post.post_id)}
+                sx={{ margin: "15px", width: "150px" }}
+              >
+                Delete Post
+              </Button>
+
+              {/* <Button
+                variant="contained"
+                disabled={!isEditing}
+                onClick={handleEditModeToggle}
+                sx={{ margin: "15px", width: "150px" }}
+              >
+                Edit Post
+              </Button> */}
             </CardContent>
           </Card>
         </Grid>
