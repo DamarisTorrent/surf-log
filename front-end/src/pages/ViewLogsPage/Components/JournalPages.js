@@ -27,13 +27,8 @@ export default function JournalPages() {
   };
 
   const handleUpdatePost = async (newText, postId) => {
-    // setParentText(newText); // Update the state in the parent component
-    console.log('in the update callback ', newText)
-    console.log('in the update callback ', postId)
-    console.log(posts)
     try {
       await updatePost(postId, newText)
-      // setPosts((prevPosts) => prevPosts.filter((post) => post.post_id !== postId))
     } catch (error) {
       console.error('Error deleting post:', error)
     }

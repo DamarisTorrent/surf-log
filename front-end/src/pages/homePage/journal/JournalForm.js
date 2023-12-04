@@ -84,6 +84,9 @@ const JournalForm = ({ waveData, selectedBuoy, date, handleClose }) => {
                 // onChange={(location) => setLocation(location.target.value)}
                 value={location}
                 variant='outlined'
+                InputProps={{
+                  style: { color: 'white' }, // Set the text color to white
+                }}
               />
 
               <TextField
@@ -96,6 +99,13 @@ const JournalForm = ({ waveData, selectedBuoy, date, handleClose }) => {
                 }
                 value={description}
                 helperText="How was your session?"
+                InputProps={{
+                  style: { color: 'white' }, // Set the text color to white
+                }}
+                InputLabelProps={{
+                  style: { color: 'white' }, // Set the label color to white
+                }}
+                
               />
 
               <br></br>
