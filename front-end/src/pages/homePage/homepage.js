@@ -45,10 +45,6 @@ export default function HomePage() {
     PRES: "",
   })
 
-
-
-
-
   //State management for data returned from the visualcrossing.com weather api
   const [weatherData, setWeatherData] = useState({
     currentTemp: "",
@@ -65,13 +61,13 @@ export default function HomePage() {
   //The select component where user can change the buoy
   const handleSelectChange = (newBuoy) => {
     setWaveData(getWaveData(selectedDate.format("YYYY-MM-DD"), newBuoy))
-    console.log('selected date', selectedDate.format("YYYY-MM-DD"))
-    console.log('selected buoy', newBuoy)
     getWeatherData(selectedDate.format("YYYY-MM-DD"), newBuoy).then(
       (result) => {
         setWeatherData(result)
       }
     )
+   
+    console.log(weatherData)
     setSelectedBuoy(newBuoy)
   }
 
@@ -196,7 +192,7 @@ export default function HomePage() {
       .catch((error) => {
         console.error("Error reading the file:", error)
       })
-  }, [selectedBuoy])
+  }, [selectedBuoy, selectedDate])
 
     // xs: extra-small devices (portrait phones), less than 600px
   // sm: small devices (landscape phones), 600px and up

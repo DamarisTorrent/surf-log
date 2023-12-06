@@ -45,11 +45,8 @@ function BuoySelect({ onChange, value }) {
           <MenuItem value={"41009"}>
             Central Florida / East Canaveral
           </MenuItem>
-          <MenuItem value={"41114"}>
-            Southern Florida / Fort Pierce 
-          </MenuItem>
           <MenuItem value={"41047"}>
-            Bahamas / Northeast Bahama 
+            South Florida / NE Bahamas 
           </MenuItem>
           <MenuItem value={"41046"}>
             Bahamas / East Bahama 

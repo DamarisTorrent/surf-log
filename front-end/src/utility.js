@@ -218,6 +218,7 @@ export const getWeatherData = async (selectedDate, selectedBuoy) => {
 
  
   const searchString = weatherSearchUrl(selectedDate, location.searchString)
+  console.log(searchString)
 
   try {
     const response = await fetch(searchString)
@@ -295,12 +296,6 @@ export const getLocation = (selectedBuoy) => {
         result.searchString = 'cocoa%20beach%2C%20florida'
         result.buoyName = 'East Canaveral Buoy'
         break;
-      case '41114':
-        //Ft Pierce
-        result.label = "Fort Pierce, Florida"
-        result.searchString = 'ft%20pierce%2C%20florida'
-        result.buoyName = 'Ft. Pierce Buoy'
-        break;
       case '41047':
         //Bahamas
         result.label = 'Abaco, Bahamas'
@@ -310,7 +305,7 @@ export const getLocation = (selectedBuoy) => {
       case '41046':
         //Bahamas
         result.label = "Eleuthera, Bahamas"
-        result.searchString = 'eleuthera%2C%20bahamas'
+        result.searchString = 'abaco%2C%20bahamas'
         result.buoyName = 'East Bahama Buoy'
         break;
       case '46053':

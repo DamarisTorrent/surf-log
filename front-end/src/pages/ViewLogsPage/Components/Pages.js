@@ -100,7 +100,9 @@ export default function Pages({ post, onDeletePost, onUpdatePost }) {
                 <Card elevation={3}>
                   <CardContent>
                     <Typography variant="overline">Wave Direction</Typography>
-                    <Typography variant="h5">{post.MWD}</Typography>
+                    <Typography variant="h5">
+                      {post.MWD !== "999" ? post.MWD : "Not Available"}
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
