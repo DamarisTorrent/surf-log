@@ -42,10 +42,11 @@ export function BuoySelector({ selectedBuoyId, onSelectBuoy }: BuoySelectorProps
                 onClick={() => onSelectBuoy(buoy.id)}
                 className={cn(
                   'w-full text-left p-4 rounded-lg transition-all duration-200',
-                  'border-2 hover:scale-[1.02] hover:shadow-lg',
+                  'border-2 active:scale-[0.98] touch-manipulation',
+                  'lg:hover:scale-[1.02] lg:hover:shadow-lg',
                   selectedBuoyId === buoy.id
                     ? 'bg-ocean-500 border-ocean-600 text-white shadow-lg scale-[1.02]'
-                    : 'bg-white/60 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:bg-white dark:hover:bg-slate-800'
+                    : 'bg-white/60 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 lg:hover:bg-white dark:lg:hover:bg-slate-800'
                 )}
               >
                 <div className="flex items-start gap-3">
