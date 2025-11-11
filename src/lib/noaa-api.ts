@@ -1,17 +1,13 @@
 import { format } from 'date-fns'
 import type { BuoyReading } from '../types/buoy'
 
-// Use Vite proxy in development, CORS proxy in production
+// Always use Vite proxy in development mode
+// In production, we'll need a backend proxy or deploy with proper CORS handling
 const isDev = import.meta.env.DEV
-const CORS_PROXY = 'https://corsproxy.io/?'
 
-const NOAA_BASE_URL = isDev
-  ? '/api/noaa/data/realtime2'
-  : `${CORS_PROXY}https://www.ndbc.noaa.gov/data/realtime2`
-
-const NOAA_HISTORICAL_URL = isDev
-  ? '/api/noaa/view_text_file.php'
-  : `${CORS_PROXY}https://www.ndbc.noaa.gov/view_text_file.php`
+// For now, always use the proxy route (works in dev, needs backend in prod)
+const NOAA_BASE_URL = '/api/noaa/data/realtime2'
+const NOAA_HISTORICAL_URL = '/api/noaa/view_text_file.php'
 
 console.log(`[NOAA API] Environment: ${isDev ? 'DEVELOPMENT' : 'PRODUCTION'}`)
 console.log(`[NOAA API] Base URL: ${NOAA_BASE_URL}`)
