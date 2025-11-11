@@ -140,7 +140,11 @@ function App() {
                 </Card>
 
                 {/* Wave Data */}
-                <WaveDataDisplay readings={waveData} isLoading={isLoading} />
+                <WaveDataDisplay
+                  readings={waveData}
+                  isLoading={isLoading}
+                  selectedDate={selectedDate}
+                />
 
                 {/* Wave Chart */}
                 {waveData.length > 0 && <WaveChart readings={waveData} />}

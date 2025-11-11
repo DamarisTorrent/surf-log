@@ -1,14 +1,15 @@
-import { Waves, Wind, Compass, Gauge } from 'lucide-react'
+import { Waves, Wind, Compass, Gauge, Calendar } from 'lucide-react'
 import type { BuoyReading } from '../types/buoy'
-import { formatWaveHeight, formatWindSpeed, formatPeriod, degreesToDirection } from '../lib/utils'
+import { formatWaveHeight, formatWindSpeed, formatPeriod, degreesToDirection, formatTimeET, formatDateET, formatDateHeader } from '../lib/utils'
 import { Card, CardContent, CardHeader, CardTitle } from './Card'
 
 interface WaveDataDisplayProps {
   readings: BuoyReading[]
   isLoading?: boolean
+  selectedDate?: Date | null
 }
 
-export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
+export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataDisplayProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -29,8 +30,33 @@ export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
 
   const latestReading = readings[0]
 
+  // Determine the date to display
+  const displayDate = selectedDate
+    ? formatDateHeader(selectedDate.toISOString().split('T')[0])
+    : 'Current Conditions'
+
   return (
     <div className="space-y-6">
+      {/* Date Header */}
+      <Card>
+        <CardContent className="flex items-center gap-3 py-4">
+          <div className="p-2 bg-ocean-500 rounded-lg">
+            <Calendar className="w-5 h-5 text-white" />
+          </div>
+          <div>
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              {selectedDate ? 'Historical Data' : 'Real-time Data'}
+            </p>
+            <p className="text-lg font-semibold text-slate-900 dark:text-white">
+              {displayDate}
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-500">
+              All times shown in Eastern Time (ET)
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Current Conditions Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
@@ -62,14 +88,15 @@ export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
       {/* Detailed Data Table */}
       <Card>
         <CardHeader>
-          <CardTitle>Historical Readings</CardTitle>
+          <CardTitle>Detailed Readings</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-slate-50 dark:bg-slate-800/50">
                 <tr>
-                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Time</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Date</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Time (ET)</th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Wave Height</th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Period</th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Wind</th>
@@ -82,7 +109,12 @@ export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
                     key={`${reading.date}-${reading.time}-${index}`}
                     className="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
                   >
-                    <td className="px-4 py-3 text-slate-900 dark:text-white font-mono">{reading.time}</td>
+                    <td className="px-4 py-3 text-slate-900 dark:text-white font-mono">
+                      {formatDateET(reading.date, reading.time)}
+                    </td>
+                    <td className="px-4 py-3 text-slate-900 dark:text-white font-mono">
+                      {formatTimeET(reading.date, reading.time)}
+                    </td>
                     <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                       {formatWaveHeight(reading.wvht)}
                     </td>
