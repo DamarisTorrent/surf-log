@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Waves } from 'lucide-react'
 import { BuoySelector } from './components/BuoySelector'
 import { DatePicker } from './components/DatePicker'
@@ -14,6 +14,7 @@ function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [waveData, setWaveData] = useState<BuoyReading[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const mainContentRef = useRef<HTMLDivElement>(null)
 
   // Load data when buoy or date changes
   useEffect(() => {
@@ -38,6 +39,22 @@ function App() {
 
     loadData()
   }, [selectedBuoyId, selectedDate])
+
+  // Auto-scroll to results on mobile when buoy is selected
+  useEffect(() => {
+    if (selectedBuoyId && mainContentRef.current) {
+      // Only scroll on smaller screens (mobile/tablet)
+      if (window.innerWidth < 1024) {
+        // Small delay to ensure DOM is updated
+        setTimeout(() => {
+          mainContentRef.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          })
+        }, 100)
+      }
+    }
+  }, [selectedBuoyId])
 
   const selectedBuoy = BUOYS.find(b => b.id === selectedBuoyId)
 
@@ -79,7 +96,7 @@ function App() {
           </aside>
 
           {/* Main Content Area */}
-          <main className="lg:col-span-8 xl:col-span-9 space-y-6">
+          <main ref={mainContentRef} className="lg:col-span-8 xl:col-span-9 space-y-6">
             {!selectedBuoyId ? (
               <Card>
                 <CardContent className="text-center py-12">
