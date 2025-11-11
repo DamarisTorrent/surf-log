@@ -45,13 +45,22 @@ function App() {
     if (selectedBuoyId && mainContentRef.current) {
       // Only scroll on smaller screens (mobile/tablet)
       if (window.innerWidth < 1024) {
-        // Small delay to ensure DOM is updated
+        // Longer delay to ensure DOM is fully updated
         setTimeout(() => {
-          mainContentRef.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          })
-        }, 100)
+          const element = mainContentRef.current
+          if (element) {
+            // Get the element's position
+            const rect = element.getBoundingClientRect()
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+            const targetPosition = rect.top + scrollTop - 20 // 20px offset from top
+
+            // Smooth scroll to position
+            window.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            })
+          }
+        }, 300)
       }
     }
   }, [selectedBuoyId])
