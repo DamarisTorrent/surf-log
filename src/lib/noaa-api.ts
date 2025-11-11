@@ -13,6 +13,9 @@ const NOAA_HISTORICAL_URL = isDev
   ? '/api/noaa/view_text_file.php'
   : `${CORS_PROXY}https://www.ndbc.noaa.gov/view_text_file.php`
 
+console.log(`[NOAA API] Environment: ${isDev ? 'DEVELOPMENT' : 'PRODUCTION'}`)
+console.log(`[NOAA API] Base URL: ${NOAA_BASE_URL}`)
+
 /**
  * Parse NOAA text data format into structured readings
  */
@@ -60,14 +63,23 @@ function parseNOAAData(text: string, buoyId: string): BuoyReading[] {
 export async function fetchRealtimeBuoyData(buoyId: string): Promise<BuoyReading[]> {
   try {
     const url = `${NOAA_BASE_URL}/${buoyId}.txt`
+    console.log(`[NOAA API] Fetching real-time data from: ${url}`)
+
     const response = await fetch(url)
+    console.log(`[NOAA API] Response status: ${response.status} ${response.statusText}`)
 
     if (!response.ok) {
       throw new Error(`Failed to fetch buoy data: ${response.statusText}`)
     }
 
     const text = await response.text()
-    return parseNOAAData(text, buoyId)
+    console.log(`[NOAA API] Response length: ${text.length} characters`)
+    console.log(`[NOAA API] First 200 chars:`, text.substring(0, 200))
+
+    const data = parseNOAAData(text, buoyId)
+    console.log(`[NOAA API] Parsed ${data.length} readings`)
+
+    return data
   } catch (error) {
     console.error(`Error fetching realtime data for buoy ${buoyId}:`, error)
     return []
