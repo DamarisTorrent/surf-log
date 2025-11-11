@@ -9,7 +9,7 @@ A modern, beautiful web application for viewing real-time and historical wave da
 ## ✨ Features
 
 - **Real-time Wave Data** - Live data from 70+ NOAA buoys across all US coastal regions
-- **Historical Data** - Access wave data up to 5 years back
+- **Historical Data** - Access wave data up to 15 years back
 - **Beautiful Visualizations** - Interactive charts showing wave height and period trends
 - **Detailed Metrics** - Wave height, period, wind speed, direction, and more
 - **Responsive Design** - Mobile-first design that works on all devices
@@ -130,7 +130,7 @@ View current wave conditions including:
 - Atmospheric pressure
 
 ### Historical Analysis
-Select any date within the last 5 years to view:
+Select any date within the last 15 years to view:
 - Hourly wave data readings
 - Wave height trends over 48 hours
 - Historical weather patterns

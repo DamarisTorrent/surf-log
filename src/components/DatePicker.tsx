@@ -18,8 +18,8 @@ export function DatePicker({ selectedDate, onSelectDate }: DatePickerProps) {
 
   // Maximum date is today
   const maxDate = format(new Date(), 'yyyy-MM-dd')
-  // Minimum date is 5 years ago (NOAA historical data availability)
-  const minDate = format(new Date(new Date().setFullYear(new Date().getFullYear() - 5)), 'yyyy-MM-dd')
+  // Minimum date is 15 years ago (NOAA historical data availability)
+  const minDate = format(new Date(new Date().setFullYear(new Date().getFullYear() - 15)), 'yyyy-MM-dd')
 
   return (
     <div className="relative">
@@ -41,7 +41,7 @@ export function DatePicker({ selectedDate, onSelectDate }: DatePickerProps) {
         <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
       </div>
       <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-        Historical data available from the last 5 years
+        Historical data available from the last 15 years
       </p>
     </div>
   )

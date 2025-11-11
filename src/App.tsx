@@ -93,11 +93,11 @@ function App() {
                     <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
                       <li className="flex items-start gap-2">
                         <span className="text-ocean-500">•</span>
-                        <span>Real-time wave data from 10 NOAA buoys</span>
+                        <span>Real-time wave data from 70+ NOAA buoys</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-ocean-500">•</span>
-                        <span>Historical data up to 5 years back</span>
+                        <span>Historical data up to 15 years back</span>
                       </li>
                       <li className="flex items-start gap-2">
                         <span className="text-ocean-500">•</span>
