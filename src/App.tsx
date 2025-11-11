@@ -65,11 +65,11 @@ function App() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Sidebar - Buoy Selection */}
           <aside className="lg:col-span-4 xl:col-span-3">
-            <Card className="sticky top-4 max-h-[calc(100vh-2rem)] flex flex-col">
+            <Card className="lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] flex flex-col">
               <CardHeader className="flex-shrink-0">
                 <CardTitle className="text-xl">Select Buoy</CardTitle>
               </CardHeader>
-              <CardContent className="overflow-y-auto flex-1">
+              <CardContent className="lg:overflow-y-auto flex-1">
                 <BuoySelector
                   selectedBuoyId={selectedBuoyId}
                   onSelectBuoy={setSelectedBuoyId}
