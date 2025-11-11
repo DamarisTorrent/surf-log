@@ -1,8 +1,17 @@
 import { format } from 'date-fns'
 import type { BuoyReading } from '../types/buoy'
 
-const NOAA_BASE_URL = 'https://www.ndbc.noaa.gov/data/realtime2'
-const NOAA_HISTORICAL_URL = 'https://www.ndbc.noaa.gov/view_text_file.php'
+// Use Vite proxy in development, CORS proxy in production
+const isDev = import.meta.env.DEV
+const CORS_PROXY = 'https://corsproxy.io/?'
+
+const NOAA_BASE_URL = isDev
+  ? '/api/noaa/data/realtime2'
+  : `${CORS_PROXY}https://www.ndbc.noaa.gov/data/realtime2`
+
+const NOAA_HISTORICAL_URL = isDev
+  ? '/api/noaa/view_text_file.php'
+  : `${CORS_PROXY}https://www.ndbc.noaa.gov/view_text_file.php`
 
 /**
  * Parse NOAA text data format into structured readings
