@@ -5,13 +5,13 @@ import { DatePicker } from './components/DatePicker'
 import { WaveDataDisplay } from './components/WaveDataDisplay'
 import { WaveChart } from './components/WaveChart'
 import { Card, CardContent, CardHeader, CardTitle } from './components/Card'
-import { fetchBuoyDataForDate } from './lib/noaa-api'
+import { fetchRealtimeBuoyData, fetchBuoyDataForDate } from './lib/noaa-api'
 import type { BuoyReading } from './types/buoy'
 import { BUOYS } from './types/buoy'
 
 function App() {
   const [selectedBuoyId, setSelectedBuoyId] = useState<string | null>(null)
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [waveData, setWaveData] = useState<BuoyReading[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
@@ -22,7 +22,11 @@ function App() {
     const loadData = async () => {
       setIsLoading(true)
       try {
-        const data = await fetchBuoyDataForDate(selectedBuoyId, selectedDate)
+        // If no date selected, show real-time data (last 45 days)
+        // If date selected, show data for that specific date
+        const data = selectedDate
+          ? await fetchBuoyDataForDate(selectedBuoyId, selectedDate)
+          : await fetchRealtimeBuoyData(selectedBuoyId)
         setWaveData(data)
       } catch (error) {
         console.error('Error loading wave data:', error)
