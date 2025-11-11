@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
-import { Waves } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Waves, ArrowLeft } from 'lucide-react'
 import { BuoySelector } from './components/BuoySelector'
 import { DatePicker } from './components/DatePicker'
 import { WaveDataDisplay } from './components/WaveDataDisplay'
@@ -14,7 +14,7 @@ function App() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [waveData, setWaveData] = useState<BuoyReading[]>([])
   const [isLoading, setIsLoading] = useState(false)
-  const mainContentRef = useRef<HTMLDivElement>(null)
+  const [showMobileDetails, setShowMobileDetails] = useState(false)
 
   // Load data when buoy or date changes
   useEffect(() => {
@@ -40,30 +40,21 @@ function App() {
     loadData()
   }, [selectedBuoyId, selectedDate])
 
-  // Auto-scroll to results on mobile when buoy is selected
-  useEffect(() => {
-    if (selectedBuoyId && mainContentRef.current) {
-      // Only scroll on smaller screens (mobile/tablet)
-      if (window.innerWidth < 1024) {
-        // Longer delay to ensure DOM is fully updated
-        setTimeout(() => {
-          const element = mainContentRef.current
-          if (element) {
-            // Get the element's position
-            const rect = element.getBoundingClientRect()
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-            const targetPosition = rect.top + scrollTop - 20 // 20px offset from top
-
-            // Smooth scroll to position
-            window.scrollTo({
-              top: targetPosition,
-              behavior: 'smooth'
-            })
-          }
-        }, 300)
-      }
+  // Handle buoy selection - show details on mobile
+  const handleBuoySelect = (buoyId: string) => {
+    setSelectedBuoyId(buoyId)
+    // On mobile, switch to details view
+    if (window.innerWidth < 1024) {
+      setShowMobileDetails(true)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
-  }, [selectedBuoyId])
+  }
+
+  // Handle back button on mobile
+  const handleMobileBack = () => {
+    setShowMobileDetails(false)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const selectedBuoy = BUOYS.find(b => b.id === selectedBuoyId)
 
@@ -87,25 +78,83 @@ function App() {
           </div>
         </header>
 
-        {/* Main Content */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        {/* Mobile: Show either list or details */}
+        <div className="lg:hidden">
+          {!showMobileDetails ? (
+            // Mobile Buoy List
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-xl">Select Buoy</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <BuoySelector
+                  selectedBuoyId={selectedBuoyId}
+                  onSelectBuoy={handleBuoySelect}
+                />
+              </CardContent>
+            </Card>
+          ) : (
+            // Mobile Details View
+            <div className="space-y-6">
+              {/* Back Button */}
+              <button
+                onClick={handleMobileBack}
+                className="flex items-center gap-2 text-ocean-600 dark:text-ocean-400 hover:text-ocean-700 dark:hover:text-ocean-300 font-medium transition-colors"
+              >
+                <ArrowLeft className="w-5 h-5" />
+                Back to Buoys
+              </button>
+
+              {/* Buoy Details */}
+              <Card>
+                <CardContent>
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
+                        {selectedBuoy?.name}
+                      </h2>
+                      <p className="text-slate-600 dark:text-slate-400">
+                        {selectedBuoy?.location} • Buoy {selectedBuoy?.id}
+                      </p>
+                    </div>
+                    <DatePicker
+                      selectedDate={selectedDate}
+                      onSelectDate={setSelectedDate}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
+              <WaveDataDisplay
+                readings={waveData}
+                isLoading={isLoading}
+                selectedDate={selectedDate}
+              />
+
+              {waveData.length > 0 && <WaveChart readings={waveData} />}
+            </div>
+          )}
+        </div>
+
+        {/* Desktop: Side-by-side layout */}
+        <div className="hidden lg:grid lg:grid-cols-12 gap-6">
           {/* Sidebar - Buoy Selection */}
           <aside className="lg:col-span-4 xl:col-span-3">
-            <Card className="lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] flex flex-col">
+            <Card className="sticky top-4 max-h-[calc(100vh-2rem)] flex flex-col">
               <CardHeader className="flex-shrink-0">
                 <CardTitle className="text-xl">Select Buoy</CardTitle>
               </CardHeader>
-              <CardContent className="lg:overflow-y-auto flex-1">
+              <CardContent className="overflow-y-auto flex-1">
                 <BuoySelector
                   selectedBuoyId={selectedBuoyId}
-                  onSelectBuoy={setSelectedBuoyId}
+                  onSelectBuoy={handleBuoySelect}
                 />
               </CardContent>
             </Card>
           </aside>
 
           {/* Main Content Area */}
-          <main ref={mainContentRef} className="lg:col-span-8 xl:col-span-9 space-y-6">
+          <main className="lg:col-span-8 xl:col-span-9 space-y-6">
             {!selectedBuoyId ? (
               <Card>
                 <CardContent className="text-center py-12">
