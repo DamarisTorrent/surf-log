@@ -17,9 +17,15 @@ export function BuoySelector({ selectedBuoyId, onSelectBuoy }: BuoySelectorProps
   }, {} as Record<string, Buoy[]>)
 
   const regionNames = {
-    atlantic: '🌊 Atlantic Coast',
-    caribbean: '🏝️ Caribbean',
-    pacific: '🌅 Pacific Coast'
+    'northeast': '🦞 Northeast Atlantic',
+    'mid-atlantic': '🌊 Mid-Atlantic',
+    'southeast': '🏖️ Southeast Atlantic',
+    'gulf': '🌴 Gulf of Mexico',
+    'caribbean': '🏝️ Caribbean',
+    'pacific-north': '🌲 Pacific Northwest',
+    'pacific-central': '🌁 Central California',
+    'pacific-south': '🌅 Southern California',
+    'hawaii': '🌺 Hawaii'
   }
 
   return (

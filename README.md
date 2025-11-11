@@ -8,7 +8,7 @@ A modern, beautiful web application for viewing real-time and historical wave da
 
 ## ✨ Features
 
-- **Real-time Wave Data** - Live data from 10 NOAA buoys across Atlantic, Pacific, and Caribbean regions
+- **Real-time Wave Data** - Live data from 70+ NOAA buoys across all US coastal regions
 - **Historical Data** - Access wave data up to 5 years back
 - **Beautiful Visualizations** - Interactive charts showing wave height and period trends
 - **Detailed Metrics** - Wave height, period, wind speed, direction, and more
@@ -21,23 +21,34 @@ A modern, beautiful web application for viewing real-time and historical wave da
 
 [View Live Demo](#) (Coming soon)
 
-## 📍 Available Buoys
+## 📍 Available Buoys (70+ Stations)
 
-### Atlantic Coast
-- **44008** - Nantucket, MA
-- **41002** - South Hatteras, NC
-- **41013** - Frying Pan Shoals, Cape Fear, NC
-- **41004** - Edisto, Charleston, SC
-- **41008** - Grays Reef, Jacksonville, FL
-- **41009** - Canaveral, Cocoa Beach, FL
+### 🦞 Northeast Atlantic
+6 buoys from Maine to New Jersey including Nantucket, Montauk Point, Delaware Bay, and Georges Bank
 
-### Caribbean
-- **41047** - Northeast Bahamas
-- **41046** - East Bahamas
+### 🌊 Mid-Atlantic
+3 buoys from North Carolina including South Hatteras, Frying Pan Shoals, and Diamond Shoals
 
-### Pacific Coast
-- **46053** - Santa Barbara, CA
-- **46086** - San Clemente, CA
+### 🏖️ Southeast Atlantic
+5 buoys from South Carolina to Florida including Charleston, Savannah, Jacksonville, and Cocoa Beach
+
+### 🌴 Gulf of Mexico
+6 buoys from Texas to Florida including Corpus Christi, Pensacola, and Tampa
+
+### 🏝️ Caribbean
+5 buoys including Bahamas, Puerto Rico, and Virgin Islands
+
+### 🌲 Pacific Northwest
+6 buoys from Washington to Oregon including Columbia River Bar, Tillamook, and Stonewall Bank
+
+### 🌁 Central California
+5 buoys from Bodega Bay to Monterey including San Francisco, Half Moon Bay, and Monterey Bay
+
+### 🌅 Southern California
+9 buoys from Point Arguello to San Diego including Santa Barbara, Long Beach, and San Clemente
+
+### 🌺 Hawaii
+6 buoys including Oahu, Kauai, and Big Island offshore monitoring stations
 
 ## 🛠️ Tech Stack
 
