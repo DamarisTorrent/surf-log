@@ -58,7 +58,7 @@ export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataD
       </Card>
 
       {/* Current Conditions Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <StatCard
           icon={<Waves className="w-6 h-6" />}
           label="Wave Height"
@@ -67,9 +67,15 @@ export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataD
         />
         <StatCard
           icon={<Compass className="w-6 h-6" />}
-          label="Wave Period"
+          label="Dominant Period"
           value={formatPeriod(latestReading.dpd)}
           color="cyan"
+        />
+        <StatCard
+          icon={<Compass className="w-6 h-6" />}
+          label="Average Period"
+          value={formatPeriod(latestReading.apd)}
+          color="teal"
         />
         <StatCard
           icon={<Wind className="w-6 h-6" />}
@@ -79,7 +85,7 @@ export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataD
         />
         <StatCard
           icon={<Gauge className="w-6 h-6" />}
-          label="Direction"
+          label="Wave Direction"
           value={degreesToDirection(latestReading.mwd)}
           color="blue"
         />
@@ -98,9 +104,10 @@ export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataD
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Date</th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Time (ET)</th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Wave Height</th>
-                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Period</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Dom. Period</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Avg. Period</th>
                   <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Wind</th>
-                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Direction</th>
+                  <th className="px-4 py-3 text-left font-semibold text-slate-700 dark:text-slate-300">Wave Dir.</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
@@ -120,6 +127,9 @@ export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataD
                     </td>
                     <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                       {formatPeriod(reading.dpd)}
+                    </td>
+                    <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
+                      {formatPeriod(reading.apd)}
                     </td>
                     <td className="px-4 py-3 text-slate-700 dark:text-slate-300">
                       {formatWindSpeed(reading.wspd)}
@@ -142,13 +152,14 @@ interface StatCardProps {
   icon: React.ReactNode
   label: string
   value: string
-  color: 'ocean' | 'cyan' | 'sky' | 'blue'
+  color: 'ocean' | 'cyan' | 'teal' | 'sky' | 'blue'
 }
 
 function StatCard({ icon, label, value, color }: StatCardProps) {
   const colorClasses = {
     ocean: 'bg-ocean-500 text-white',
     cyan: 'bg-cyan-500 text-white',
+    teal: 'bg-teal-500 text-white',
     sky: 'bg-sky-500 text-white',
     blue: 'bg-blue-500 text-white'
   }
