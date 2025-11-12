@@ -157,10 +157,15 @@ function App() {
                         {selectedBuoy?.location} • Buoy {selectedBuoy?.id}
                       </p>
                     </div>
-                    <DatePicker
-                      selectedDate={selectedDate}
-                      onSelectDate={setSelectedDate}
-                    />
+                    <div>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                        Select past buoy data
+                      </p>
+                      <DatePicker
+                        selectedDate={selectedDate}
+                        onSelectDate={setSelectedDate}
+                      />
+                    </div>
                   </div>
                 </CardContent>
               </Card>
@@ -259,6 +264,9 @@ function App() {
                         </p>
                       </div>
                       <div className="w-full sm:w-auto">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                          Select past buoy data
+                        </p>
                         <DatePicker
                           selectedDate={selectedDate}
                           onSelectDate={setSelectedDate}

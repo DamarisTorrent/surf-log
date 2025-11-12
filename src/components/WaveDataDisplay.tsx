@@ -32,6 +32,24 @@ export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataD
 
   return (
     <div className="space-y-6">
+      {/* Data Type Header */}
+      <Card>
+        <CardContent className="text-center py-4">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+            {selectedDate ? 'Historical Data' : 'Real-time Data'}
+          </h3>
+          <p className="text-slate-600 dark:text-slate-400 mt-1">
+            {selectedDate
+              ? formatDateET(selectedDate.toISOString().split('T')[0], '00:00')
+              : formatDateET(new Date().toISOString().split('T')[0], '00:00')
+            }
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+            All times shown in Eastern Time (ET)
+          </p>
+        </CardContent>
+      </Card>
+
       {/* Current Conditions Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         <StatCard
