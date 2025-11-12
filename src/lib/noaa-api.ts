@@ -54,9 +54,11 @@ function parseNOAAData(text: string, buoyId: string): BuoyReading[] {
 }
 
 /**
- * Fetch real-time data (last 24 hours) from a buoy
+ * Fetch real-time data (last 24 hours by default) from a buoy
+ * @param buoyId - The buoy ID to fetch data for
+ * @param filter24Hours - If true (default), filter to last 24 hours only. If false, return all available data.
  */
-export async function fetchRealtimeBuoyData(buoyId: string): Promise<BuoyReading[]> {
+export async function fetchRealtimeBuoyData(buoyId: string, filter24Hours: boolean = true): Promise<BuoyReading[]> {
   try {
     const url = `${NOAA_BASE_URL}/${buoyId}.txt`
     console.log(`[NOAA API] Fetching real-time data from: ${url}`)
@@ -75,25 +77,28 @@ export async function fetchRealtimeBuoyData(buoyId: string): Promise<BuoyReading
     const allData = parseNOAAData(text, buoyId)
     console.log(`[NOAA API] Parsed ${allData.length} readings`)
 
-    // Filter to only last 24 hours
-    const now = Date.now()
-    const twentyFourHoursAgo = now - (24 * 60 * 60 * 1000)
+    // Filter to only last 24 hours if requested
+    if (filter24Hours) {
+      const now = Date.now()
+      const twentyFourHoursAgo = now - (24 * 60 * 60 * 1000)
 
-    const recentData = allData.filter(reading => {
-      try {
-        // Parse the reading date/time (format: YYYY-MM-DD and HH:MM in UTC)
-        const [year, month, day] = reading.date.split('-').map(Number)
-        const [hour, minute] = reading.time.split(':').map(Number)
-        const readingTime = Date.UTC(year, month - 1, day, hour, minute)
-        return readingTime >= twentyFourHoursAgo
-      } catch {
-        return false
-      }
-    })
+      const recentData = allData.filter(reading => {
+        try {
+          // Parse the reading date/time (format: YYYY-MM-DD and HH:MM in UTC)
+          const [year, month, day] = reading.date.split('-').map(Number)
+          const [hour, minute] = reading.time.split(':').map(Number)
+          const readingTime = Date.UTC(year, month - 1, day, hour, minute)
+          return readingTime >= twentyFourHoursAgo
+        } catch {
+          return false
+        }
+      })
 
-    console.log(`[NOAA API] Filtered to ${recentData.length} readings from last 24 hours`)
+      console.log(`[NOAA API] Filtered to ${recentData.length} readings from last 24 hours`)
+      return recentData
+    }
 
-    return recentData
+    return allData
   } catch (error) {
     console.error(`Error fetching realtime data for buoy ${buoyId}:`, error)
     return []
@@ -140,7 +145,7 @@ export async function fetchBuoyDataForDate(
 
   // Use realtime data for dates within 45 days
   if (daysAgo <= 45) {
-    const allData = await fetchRealtimeBuoyData(buoyId)
+    const allData = await fetchRealtimeBuoyData(buoyId, false) // Don't filter to 24 hours for historical dates
     const targetDateStr = format(date, 'yyyy-MM-dd')
     return allData.filter(reading => reading.date === targetDateStr)
   }
