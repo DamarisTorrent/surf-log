@@ -6,6 +6,7 @@ import { WaveDataDisplay } from './components/WaveDataDisplay'
 import { WaveChart } from './components/WaveChart'
 import { Card, CardContent, CardHeader, CardTitle } from './components/Card'
 import { fetchRealtimeBuoyData, fetchBuoyDataForDate } from './lib/noaa-api'
+import { calculateDistance } from './lib/utils'
 import type { BuoyReading } from './types/buoy'
 import { BUOYS } from './types/buoy'
 
@@ -15,6 +16,7 @@ function App() {
   const [waveData, setWaveData] = useState<BuoyReading[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [showMobileDetails, setShowMobileDetails] = useState(false)
+  const [isLocating, setIsLocating] = useState(true)
 
   // Load data when buoy or date changes
   useEffect(() => {
@@ -39,6 +41,44 @@ function App() {
 
     loadData()
   }, [selectedBuoyId, selectedDate])
+
+  // Auto-select nearest buoy on first load
+  useEffect(() => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords
+
+          // Find the closest buoy
+          let closestBuoy = BUOYS[0]
+          let minDistance = calculateDistance(latitude, longitude, closestBuoy.lat, closestBuoy.lon)
+
+          BUOYS.forEach((buoy) => {
+            const distance = calculateDistance(latitude, longitude, buoy.lat, buoy.lon)
+            if (distance < minDistance) {
+              minDistance = distance
+              closestBuoy = buoy
+            }
+          })
+
+          console.log(`[Location] Found closest buoy: ${closestBuoy.name} (${minDistance.toFixed(1)}km away)`)
+          setSelectedBuoyId(closestBuoy.id)
+          setIsLocating(false)
+        },
+        (error) => {
+          console.log('[Location] Geolocation denied or unavailable:', error.message)
+          setIsLocating(false)
+        },
+        {
+          timeout: 10000,
+          maximumAge: 300000 // Cache for 5 minutes
+        }
+      )
+    } else {
+      console.log('[Location] Geolocation not supported')
+      setIsLocating(false)
+    }
+  }, [])
 
   // Handle buoy selection - show details on mobile
   const handleBuoySelect = (buoyId: string) => {
@@ -158,13 +198,27 @@ function App() {
             {!selectedBuoyId ? (
               <Card>
                 <CardContent className="text-center py-12">
-                  <Waves className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
-                  <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
-                    Welcome to SurfLog
-                  </h2>
-                  <p className="text-slate-600 dark:text-slate-400 mb-4">
-                    Select a buoy from the sidebar to view wave data
-                  </p>
+                  {isLocating ? (
+                    <>
+                      <div className="animate-spin rounded-full h-16 w-16 border-4 border-ocean-500 border-t-transparent mx-auto mb-4"></div>
+                      <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                        Finding Nearest Buoy
+                      </h2>
+                      <p className="text-slate-600 dark:text-slate-400">
+                        Getting your location...
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <Waves className="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4" />
+                      <h2 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+                        Welcome to SurfLog
+                      </h2>
+                      <p className="text-slate-600 dark:text-slate-400 mb-4">
+                        Select a buoy from the sidebar to view wave data
+                      </p>
+                    </>
+                  )}
                   <div className="max-w-md mx-auto text-left bg-slate-50 dark:bg-slate-800/50 rounded-lg p-6 mt-6">
                     <h3 className="font-semibold text-slate-900 dark:text-white mb-3">
                       Available Features:
