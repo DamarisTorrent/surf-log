@@ -62,7 +62,7 @@ export function DatePicker({ selectedDate, onSelectDate }: DatePickerProps) {
       <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
         {selectedDate
           ? 'Showing historical data for selected date'
-          : 'Showing latest data from the last 45 days'}
+          : 'Showing latest data from the last 24 hours'}
       </p>
     </div>
   )
