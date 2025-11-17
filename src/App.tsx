@@ -157,26 +157,10 @@ function App() {
                         {selectedBuoy?.location} • Buoy {selectedBuoy?.id}
                       </p>
                     </div>
-                    <div className="text-center py-2">
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                        {selectedDate ? 'Historical Data' : 'Real-time Data'}
-                      </h3>
-                      <p className="text-slate-600 dark:text-slate-400 mt-1">
-                        {selectedDate
-                          ? selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-                          : new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-                        }
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
-                        Select past buoy data
-                      </p>
-                      <DatePicker
-                        selectedDate={selectedDate}
-                        onSelectDate={setSelectedDate}
-                      />
-                    </div>
+                    <DatePicker
+                      selectedDate={selectedDate}
+                      onSelectDate={setSelectedDate}
+                    />
                   </div>
                 </CardContent>
               </Card>
@@ -262,11 +246,11 @@ function App() {
               </Card>
             ) : (
               <>
-                {/* Date Picker */}
+                {/* Buoy Header */}
                 <Card>
                   <CardContent>
-                    <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-                      <div className="flex-shrink-0">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                      <div>
                         <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                           {selectedBuoy?.name}
                         </h2>
@@ -274,21 +258,7 @@ function App() {
                           {selectedBuoy?.location} • Buoy {selectedBuoy?.id}
                         </p>
                       </div>
-                      <div className="flex-1 text-center">
-                        <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                          {selectedDate ? 'Historical Data' : 'Real-time Data'}
-                        </h3>
-                        <p className="text-slate-600 dark:text-slate-400 mt-1">
-                          {selectedDate
-                            ? selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-                            : new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
-                          }
-                        </p>
-                      </div>
-                      <div className="flex-shrink-0 w-full sm:w-auto">
-                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
-                          Select past buoy data
-                        </p>
+                      <div className="w-full sm:w-auto">
                         <DatePicker
                           selectedDate={selectedDate}
                           onSelectDate={setSelectedDate}

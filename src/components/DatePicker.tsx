@@ -27,9 +27,6 @@ export function DatePicker({ selectedDate, onSelectDate }: DatePickerProps) {
 
   return (
     <div className="relative">
-      <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-        {selectedDate ? 'Historical Data' : 'Real-time Data'}
-      </label>
       <div className="flex gap-2">
         <div className="relative flex-1">
           <input
@@ -38,11 +35,10 @@ export function DatePicker({ selectedDate, onSelectDate }: DatePickerProps) {
             onChange={handleDateChange}
             min={minDate}
             max={maxDate}
-            placeholder="Select date for historical data"
             className="w-full px-4 py-3 pl-12 rounded-lg border-2 border-slate-200 dark:border-slate-700
                        bg-white dark:bg-slate-800 text-slate-900 dark:text-white
                        focus:outline-none focus:ring-2 focus:ring-ocean-500 focus:border-transparent
-                       transition-all duration-200"
+                       transition-all duration-200 cursor-pointer"
           />
           <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
         </div>
