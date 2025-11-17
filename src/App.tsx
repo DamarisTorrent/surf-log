@@ -179,7 +179,6 @@ function App() {
               <WaveDataDisplay
                 readings={waveData}
                 isLoading={isLoading}
-                selectedDate={selectedDate}
               />
 
               {waveData.length > 0 && <WaveChart readings={waveData} />}
@@ -294,7 +293,6 @@ function App() {
                 <WaveDataDisplay
                   readings={waveData}
                   isLoading={isLoading}
-                  selectedDate={selectedDate}
                 />
 
                 {/* Wave Chart */}

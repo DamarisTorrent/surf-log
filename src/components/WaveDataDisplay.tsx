@@ -6,10 +6,9 @@ import { Card, CardContent, CardHeader, CardTitle } from './Card'
 interface WaveDataDisplayProps {
   readings: BuoyReading[]
   isLoading?: boolean
-  selectedDate?: Date | null
 }
 
-export function WaveDataDisplay({ readings, isLoading, selectedDate }: WaveDataDisplayProps) {
+export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
