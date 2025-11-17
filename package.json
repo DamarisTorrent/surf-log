@@ -10,6 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@nodelib/fs.scandir": "^4.0.1",
+    "@nodelib/fs.stat": "^4.0.0",
+    "@nodelib/fs.walk": "^3.0.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.553.0",
