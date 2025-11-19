@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Discover Folly</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">Discover Folly</a>
+            <button class="mobile-menu-toggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="buying.html">Buying</a></li>
+                <li><a href="selling.html">Selling</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Areas</a>
+                    <div class="dropdown-content">
+                        <a href="folly-beach.html">Folly Beach</a>
+                        <a href="james-island.html">James Island</a>
+                        <a href="johns-island.html">Johns Island</a>
+                        <a href="wadmalaw.html">Wadmalaw</a>
+                    </div>
+                </li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('https://images.squarespace-cdn.com/content/v1/65bee177fc592e7b51d07bae/79c79279-43d5-40b6-893a-10744ef90709/Discover+surfboard+stretch.jpg');">
+        <h1>Reach Out for Details on<br>Anything and Everything</h1>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="intro-text">
+                <h2>Get in Touch</h2>
+                <p>Whether you're looking to buy, sell, or simply have questions about the Charleston beach real estate market, we're here to help. Contact us today to start a conversation.</p>
+            </div>
+
+            <div class="contact-form">
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+
+            <div class="intro-text" style="margin-top: 3rem;">
+                <h3>Carolina One Real Estate</h3>
+                <p>We are part of Carolina One Real Estate, Charleston's leading real estate company.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Discover Folly</h3>
+                    <p>Charleston Beach & Sea Island Real Estate</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Areas</h3>
+                    <ul>
+                        <li><a href="folly-beach.html">Folly Beach</a></li>
+                        <li><a href="james-island.html">James Island</a></li>
+                        <li><a href="johns-island.html">Johns Island</a></li>
+                        <li><a href="wadmalaw.html">Wadmalaw</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="buying.html">Buying</a></li>
+                        <li><a href="selling.html">Selling</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Reach out for details on anything and everything</p>
+                    <a href="contact.html" class="footer-btn">Get in Touch</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Discover Folly. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
