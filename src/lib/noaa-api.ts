@@ -114,10 +114,19 @@ export async function fetchHistoricalBuoyData(
 ): Promise<BuoyReading[]> {
   try {
     const year = date.getFullYear()
+    const currentYear = new Date().getFullYear()
 
-    // NOAA historical stdmet files are annual: BUOYIDhYYYY.txt.gz
-    const filename = `${buoyId}h${year}.txt.gz`
-    const url = `${NOAA_HISTORICAL_URL}?filename=${filename}&dir=data/historical/stdmet/`
+    let url: string
+
+    if (year === currentYear) {
+      // Current year data is in monthly files (plain text)
+      const monthName = format(date, 'MMM') // Jan, Feb, Mar...
+      url = `/api/noaa/data/stdmet/${monthName}/${buoyId}.txt`
+    } else {
+      // Previous years are in annual historical archives
+      const filename = `${buoyId}h${year}.txt.gz`
+      url = `${NOAA_HISTORICAL_URL}?filename=${filename}&dir=data/historical/stdmet/`
+    }
 
     const response = await fetch(url)
 
@@ -127,7 +136,7 @@ export async function fetchHistoricalBuoyData(
 
     const text = await response.text()
 
-    // NOAA sometimes returns an HTML error page with 200 status
+    // NOAA sometimes returns an error page/body with 200 status
     if (text.includes('Unable to access data file')) {
       console.warn(`[NOAA API] Historical file unavailable for buoy ${buoyId}, year ${year}`)
       return []
