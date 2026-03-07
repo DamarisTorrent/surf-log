@@ -80,7 +80,7 @@ export default function HomePage() {
   // 6. Get the weather data for the selected date
   // 7. Set the state variable SelectedDate
   const handleDateChange = (newDate) => {
-    if (newDate !== "undefined") {
+    if (newDate) {
       // 1. Get the wave data for the selected date
       getWaveData(newDate.format("YYYY-MM-DD"), selectedBuoy).then((result) => {
         let tempWaveData
@@ -192,7 +192,7 @@ export default function HomePage() {
       .catch((error) => {
         console.error("Error reading the file:", error)
       })
-  }, [selectedBuoy, selectedDate])
+  }, [selectedBuoy])
 
     // xs: extra-small devices (portrait phones), less than 600px
   // sm: small devices (landscape phones), 600px and up

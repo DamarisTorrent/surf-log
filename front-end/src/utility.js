@@ -161,7 +161,7 @@ export const isGreaterThan45Days = (date1, date2) => {
   // Convert milliseconds to days (1 day = 24 hours * 60 minutes * 60 seconds * 1000 milliseconds)
   const daysDifference = timeDifference / (1000 * 60 * 60 * 24)
 
-  if (daysDifference >= 45) {
+  if (daysDifference > 45) {
     return true
   } else {
     return false
