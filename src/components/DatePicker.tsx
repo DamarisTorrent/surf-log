@@ -27,7 +27,7 @@ export function DatePicker({ selectedDate, onSelectDate }: DatePickerProps) {
 
   return (
     <div className="relative">
-      <div className="flex gap-2">
+      <div className="flex gap-2 flex-wrap sm:flex-nowrap">
         <div className="relative flex-1">
           <input
             type="date"

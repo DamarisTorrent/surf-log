@@ -32,7 +32,7 @@ export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
   return (
     <div className="space-y-6">
       {/* Current Conditions Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
         <StatCard
           icon={<Waves className="w-6 h-6" />}
           label="Wave Height"
@@ -65,8 +65,8 @@ export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
         />
       </div>
 
-      {/* Detailed Data Table */}
-      <Card>
+      {/* Detailed Data Table (desktop/tablet) */}
+      <Card className="hidden md:block">
         <CardHeader>
           <CardTitle>Detailed Readings</CardTitle>
         </CardHeader>
@@ -118,6 +118,30 @@ export function WaveDataDisplay({ readings, isLoading }: WaveDataDisplayProps) {
           </div>
         </CardContent>
       </Card>
+
+      {/* Mobile-friendly stacked readings */}
+      <div className="md:hidden space-y-3">
+        {readings.slice(0, 24).map((reading, index) => (
+          <Card key={`${reading.date}-${reading.time}-${index}`}>
+            <CardContent className="space-y-2">
+              <div className="flex items-center justify-between">
+                <p className="text-sm font-semibold text-slate-900 dark:text-white">
+                  {formatDateET(reading.date, reading.time)}
+                </p>
+                <p className="text-sm font-mono text-slate-600 dark:text-slate-300">
+                  {formatTimeET(reading.date, reading.time)}
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <p className="text-slate-600 dark:text-slate-400">Wave: <span className="text-slate-900 dark:text-white">{formatWaveHeight(reading.wvht)}</span></p>
+                <p className="text-slate-600 dark:text-slate-400">Wind: <span className="text-slate-900 dark:text-white">{formatWindSpeed(reading.wspd)}</span></p>
+                <p className="text-slate-600 dark:text-slate-400">DPD: <span className="text-slate-900 dark:text-white">{formatPeriod(reading.dpd)}</span></p>
+                <p className="text-slate-600 dark:text-slate-400">APD: <span className="text-slate-900 dark:text-white">{formatPeriod(reading.apd)}</span></p>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   )
 }
@@ -139,14 +163,14 @@ function StatCard({ icon, label, value, color }: StatCardProps) {
   }
 
   return (
-    <Card className="hover:scale-105 transition-transform duration-200">
+    <Card className="transition-transform duration-200 lg:hover:scale-105">
       <CardContent className="flex items-center gap-4">
         <div className={`p-3 rounded-lg ${colorClasses[color]}`}>
           {icon}
         </div>
         <div>
-          <p className="text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider">{label}</p>
-          <p className="text-2xl font-bold text-slate-900 dark:text-white mt-1">{value}</p>
+          <p className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider">{label}</p>
+          <p className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">{value}</p>
         </div>
       </CardContent>
     </Card>

@@ -99,7 +99,7 @@ function App() {
   const selectedBuoy = BUOYS.find(b => b.id === selectedBuoyId)
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
+    <div className="min-h-screen p-3 md:p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <header className="mb-8">
@@ -108,7 +108,7 @@ function App() {
               <Waves className="w-8 h-8 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-bold text-slate-900 dark:text-white">
+              <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white">
                 SurfLog
               </h1>
               <p className="text-slate-600 dark:text-slate-400">
