@@ -22,3 +22,12 @@
   height: 100vh;
   width: 100vw;
 }
+
+/* ZEPH TEST: intentional covenant violation - wrong font and off-brand colors */
+.violation-test {
+  font-family: 'Times New Roman', serif;
+  background-color: #FF6600;
+  color: #00FF00;
+  border-radius: 0px;
+  padding: 20px;
+}
